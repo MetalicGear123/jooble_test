@@ -3,22 +3,8 @@ import { compose, withPropsOnChange, withHandlers, pure } from "recompose";
 
 import * as R from "ramda";
 import moment from "moment";
-const toCel = kelvin =>
-  `${kelvin >= 273 ? "+" : "-"} ${(kelvin - 273).toFixed(2)} C`;
 
-const toFar = kelvin =>
-  `${kelvin >= 273 ? "+" : "-"} ${(kelvin * 9 / 5 - 459.67).toFixed(2)} F`;
-
-const selectMeasure = (type, value) => {
-  switch (type) {
-    case "Fahrenheit":
-      return toFar(value);
-    case "Celcius":
-      return toCel(value);
-    default:
-      return `${value.toFixed(2)} K`;
-  }
-};
+import { selectMeasure } from "../../utils";
 
 const HOC = compose(
   withPropsOnChange(
@@ -40,7 +26,7 @@ const HOC = compose(
                 <div>
                   <div>{city.weather[0].description}</div>
                   <img
-                    src={`http://openweathermap.org/img/w/${
+                    src={`https://openweathermap.org/img/w/${
                       city.weather[0].icon
                     }.png`}
                     alt="icon"

@@ -2,8 +2,20 @@ import React from "react";
 
 import { compose, defaultProps, withPropsOnChange, pure } from "recompose";
 
-import { isEmpty, groupBy, map, mapObjIndexed, tap, pipe, values } from "ramda";
+import {
+  isEmpty,
+  groupBy,
+  map,
+  mapObjIndexed,
+  tap,
+  pipe,
+  values,
+  head
+} from "ramda";
 import moment from "moment";
+
+import { selectMeasure } from "../../utils";
+
 const HOC = compose(
   defaultProps({
     _defaultData: {
@@ -24,22 +36,52 @@ const HOC = compose(
       };
     }
   ),
-  withPropsOnChange(["_data"], ({ _data }) => {
-    return {
-      _title: `${_data.city.name} ${_data.city.country}`,
-      _renderTitle: pipe(
-        groupBy(item => moment(item.dt * 1000).format("YYYY-MM-DD")),
-        mapObjIndexed((item, key) => (
-          <div>
-            <div>{key}</div>
-            <div>
-            {map(day => <div>{day.main.temp}</div>,item)}
+  withPropsOnChange(["_data", "tempMeasure"], ({ _data, tempMeasure }) => {
+    if (_data)
+      return {
+        _title: `${_data.city.name} ${_data.city.country}`,
+        _renderTitle: pipe(
+          groupBy(item => item.dt_txt.slice(0, 10)),
+          tap(x => console.log(x)),
+          mapObjIndexed((item, key) => (
+            <div className="ForecastContainer" key={key}>
+              <div className="ForecastDayTitle">{key}</div>
+              <div className="ForecastDaysContainer">
+                {map(
+                  day => (
+                    <div className="ForecastDay" key={day.dt}>
+                      <div>time: {day.dt_txt.slice(10, 16)}</div>
+                      <img
+                        src={`https://openweathermap.org/img/w/${
+                          head(day.weather).icon
+                        }.png`}
+                        alt={head(day.weather).icon}
+                      />
+                      <div>
+                        <div>
+                          temp: {selectMeasure(tempMeasure, day.main.temp)}&deg;
+                        </div>
+                        <div>humidity: {day.main.humidity} %</div>
+                        <div>
+                          pressure: {parseInt(day.main.pressure, 10)} hPa
+                        </div>
+
+                        <div>wind speed: {day.wind.speed} mps</div>
+
+                        <div>
+                          wind degree: {parseInt(day.wind.deg, 10)}&deg;
+                        </div>
+                      </div>
+                    </div>
+                  ),
+                  item
+                )}
+              </div>
             </div>
-          </div>
-        )),
-        values
-      )(_data.list)
-    };
+          )),
+          values
+        )(_data.list)
+      };
   }),
   pure
 );

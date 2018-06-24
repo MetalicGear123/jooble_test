@@ -31,3 +31,20 @@ export function oneOf(actual, expected) {
 
   return true;
 }
+
+const toCel = kelvin =>
+  `${kelvin >= 273 ? "+" : "-"} ${(kelvin - 273).toFixed(2)} C`;
+
+const toFar = kelvin =>
+  `${kelvin >= 273 ? "+" : "-"} ${(kelvin * 9 / 5 - 459.67).toFixed(2)} F`;
+
+export const selectMeasure = (type, value) => {
+  switch (type) {
+    case "Fahrenheit":
+      return toFar(value);
+    case "Celcius":
+      return toCel(value);
+    default:
+      return `${value.toFixed(2)} K`;
+  }
+};

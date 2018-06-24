@@ -58,9 +58,24 @@ const HOC = compose(
       this.props.getData(defaultCity, weatherType);
     },
     componentDidUpdate(prevProps) {
-      const { weatherType, defaultCity } = this.props;
+      const {
+        weatherType,
+        defaultCity,
+        data,
+        forecastData,
+        selectedCity
+      } = this.props;
       if (prevProps.weatherType !== weatherType) {
-        this.props.getData(defaultCity, weatherType);
+        let city = defaultCity;
+        if (selectedCity) {
+          if (data[selectedCity]) {
+            city = data[selectedCity].name;
+          } else if (forecastData[selectCity]) {
+            city = forecastData[selectedCity].city.name;
+          }
+        }
+        console.log("!!!", city);
+        this.props.getData(city, weatherType);
       }
     }
   }),
@@ -121,6 +136,7 @@ const App = HOC(
         <ForecastWeather
           selectedCity={selectedCity}
           forecastData={forecastData}
+          tempMeasure={tempMeasure}
         />
       )}
     </div>
