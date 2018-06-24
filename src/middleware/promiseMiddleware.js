@@ -189,7 +189,7 @@ export default function promiseMiddleware(config = {}) {
        */
       promise
         .then(value => {
-          if (value > 200) {
+          if (value === null) {
             return promise.then(handleReject);
           }
           return promise.then(handleFulfill);

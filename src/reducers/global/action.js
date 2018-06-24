@@ -19,7 +19,6 @@ export const getData = (city, type) => dispatch =>
     payload: Api(type)
       .get(city)
       .then(res => {
-        console.log(type, res);
         if (type === "weather") {
           if (res.id) {
             dispatch(selectCity(res.id));
@@ -33,6 +32,7 @@ export const getData = (city, type) => dispatch =>
           }
         }
         dispatch(Notify("Error in City value"));
+        setTimeout(() => dispatch(Notify("")), 3000);
         return null;
       })
   });

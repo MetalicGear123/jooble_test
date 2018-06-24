@@ -11,25 +11,29 @@ const HOC = compose(
   }),
   withPropsOnChange(
     ["selectedCity", "data"],
-    ({ selectedCity, data, _changeCity }) => ({
-      _listOfCitys: R.pipe(
-        R.values,
-        R.map(item => (
-          <option
-            className={`list_item ${item.id === selectedCity ? "active" : ""}`}
-            key={item.id}
-            value={item.id}
-          >
-            {item.name}
-          </option>
-        ))
-      )(data)
-    })
+    ({ selectedCity, data, _changeCity }) => {
+      return {
+        _listOfCitys: R.pipe(
+          R.values,
+          R.map(item => (
+            <option
+              className={`list_item ${
+                item.id === selectedCity ? "active" : ""
+              }`}
+              key={item.id}
+              value={item.id}
+            >
+              {item.name}
+            </option>
+          ))
+        )(data)
+      };
+    }
   ),
   pure
 );
 
-const history = HOC(({ selectedCity, _listOfCitys, _changeCity }) => (
+const history = HOC(({ selectedCity, _listOfCitys, _changeCity, _data }) => (
   <div className="historyContainer">
     <div className="historyTitle">History</div>
     <select

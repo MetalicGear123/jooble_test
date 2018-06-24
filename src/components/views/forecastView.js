@@ -41,7 +41,6 @@ const HOC = compose(
         _title: `${_data.city.name} ${_data.city.country}`,
         _renderTitle: pipe(
           groupBy(item => item.dt_txt.slice(0, 10)),
-          tap(x => console.log(x)),
           mapObjIndexed((item, key) => (
             <div className="ForecastContainer" key={key}>
               <div className="ForecastDayTitle">{key}</div>

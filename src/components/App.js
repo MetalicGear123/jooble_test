@@ -33,7 +33,9 @@ const HOC = compose(
       data: global.OneDayData,
       forecastData: global.ForecastData,
       isLoading: global.isLoading,
-      selectedCity: global.selectedCity
+      selectedCity: global.selectedCity,
+      history: global.history,
+      errorMess: global.mess
     }),
     {
       getData,
@@ -67,19 +69,15 @@ const HOC = compose(
         forecastData,
         selectedCity
       } = this.props;
-      if (
-        prevProps.weatherType !== weatherType ||
-        (prevProps.selectedCity !== selectedCity && weatherType === "forecast")
-      ) {
+      if (prevProps.weatherType !== weatherType) {
         let city = defaultCity;
         if (selectedCity) {
           if (data[selectedCity]) {
             city = data[selectedCity].name;
-          } else if (forecastData[selectCity]) {
+          } else if (forecastData[selectedCity]) {
             city = forecastData[selectedCity].city.name;
           }
         }
-        console.log("!!!", city);
         this.props.getData(city, weatherType);
       }
     }
@@ -97,6 +95,8 @@ const App = HOC(
     selectedCity,
     weatherType,
     forecastData,
+    errorMess,
+    history,
     _changeTempMeasure,
     _changeWeatherType
   }) => (
@@ -109,13 +109,14 @@ const App = HOC(
         <SearchHistory
           selectedCity={selectedCity}
           selectCity={selectCity}
-          data={data}
+          data={history}
         />
-        <CityInput getData={getData} />
+        <CityInput weatherType={weatherType} getData={getData} />
         <Measure
           tempMeasure={tempMeasure}
           changeTempMeasure={_changeTempMeasure}
         />
+        <div className="errorBlock">{errorMess}</div>
       </div>
 
       {weatherType === "weather" ? (

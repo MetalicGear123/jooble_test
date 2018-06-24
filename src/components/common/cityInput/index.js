@@ -18,12 +18,11 @@ const HOC = compose(
     }
   ),
   withHandlers({
-    _onSubmit: ({ city, resetCity, getData }) => e => {
+    _onSubmit: ({ city, resetCity, getData, weatherType }) => e => {
       e.preventDefault();
       if (R.isEmpty(city)) {
-        console.log("Error");
       } else {
-        getData(city, "weather");
+        getData(city, weatherType);
         resetCity();
       }
     }

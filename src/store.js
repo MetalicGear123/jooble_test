@@ -1,14 +1,13 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { createLogger } from "redux-logger";
 
-import error from "./middleware/error";
 import promiseMiddleware from "./middleware/promiseMiddleware";
 import thunk from "redux-thunk";
 // main reducer
 import reducer from "./reducers";
 
 export default (initialState = {}) => {
-  const middlewares = [promiseMiddleware(), error, thunk];
+  const middlewares = [promiseMiddleware(), thunk];
 
   if (process.env.NODE_ENV === "development") {
     middlewares.push(
