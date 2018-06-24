@@ -32,9 +32,8 @@ const HOC = compose(
 );
 
 const cityInput = HOC(({ city, _onSubmit, _onChange }) => (
-  <form onSubmit={_onSubmit}>
-    <div>Write another city</div>
-    <button type="submit">Select</button>
+  <form className="CityInputContainer" onSubmit={_onSubmit}>
+    <button type="submit">Find City</button>
     <input value={city} onChange={_onChange} type="text" />
   </form>
 ));
