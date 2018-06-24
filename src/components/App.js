@@ -17,6 +17,7 @@ import { getData, selectCity } from "../reducers/global/action";
 import "./style.css";
 
 //components
+import SearchHistory from "./history";
 import OneDayWeather from "./views/oneDayView.js";
 import ForecastWeather from "./views/forecastView.js";
 import CityInput from "./common/cityInput";
@@ -42,7 +43,7 @@ const HOC = compose(
   withStateHandlers(
     {
       tempMeasure: "Kelvin",
-      weatherType: "forecast"
+      weatherType: "weather"
     },
     {
       _changeTempMeasure: () => e => ({
@@ -66,7 +67,10 @@ const HOC = compose(
         forecastData,
         selectedCity
       } = this.props;
-      if (prevProps.weatherType !== weatherType) {
+      if (
+        prevProps.weatherType !== weatherType ||
+        (prevProps.selectedCity !== selectedCity && weatherType === "forecast")
+      ) {
         let city = defaultCity;
         if (selectedCity) {
           if (data[selectedCity]) {
@@ -101,6 +105,11 @@ const App = HOC(
         <SelectView
           weatherType={weatherType}
           changeWeatherType={_changeWeatherType}
+        />
+        <SearchHistory
+          selectedCity={selectedCity}
+          selectCity={selectCity}
+          data={data}
         />
         <CityInput getData={getData} />
         <Measure

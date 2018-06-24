@@ -20,7 +20,7 @@ const HOC = compose(
           return {
             _information: (
               <Fragment>
-                <div>
+                <div className="ForecastViewTitle">
                   {city.name} {city.sys.country}
                 </div>
                 <div>

@@ -5,8 +5,8 @@ import * as R from "ramda";
 
 const HOC = compose(
   withHandlers({
-    _changeCity: ({ selectCity, selectedCity }) => id => () => {
-      if (selectedCity !== id) selectCity(id);
+    _changeCity: ({ selectCity, selectedCity }) => e => {
+      if (selectedCity !== e.target.value) selectCity(e.target.value);
     }
   }),
   withPropsOnChange(
@@ -15,13 +15,13 @@ const HOC = compose(
       _listOfCitys: R.pipe(
         R.values,
         R.map(item => (
-          <div
+          <option
             className={`list_item ${item.id === selectedCity ? "active" : ""}`}
             key={item.id}
-            onClick={_changeCity(item.id)}
+            value={item.id}
           >
             {item.name}
-          </div>
+          </option>
         ))
       )(data)
     })
@@ -29,10 +29,16 @@ const HOC = compose(
   pure
 );
 
-const history = HOC(({ _listOfCitys }) => (
+const history = HOC(({ selectedCity, _listOfCitys, _changeCity }) => (
   <div className="historyContainer">
     <div className="historyTitle">History</div>
-    <div className="historyContent">{_listOfCitys}</div>
+    <select
+      value={selectedCity}
+      onChange={_changeCity}
+      className="historyContent"
+    >
+      {_listOfCitys}
+    </select>
   </div>
 ));
 
