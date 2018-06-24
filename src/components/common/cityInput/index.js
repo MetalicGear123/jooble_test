@@ -1,6 +1,6 @@
 import React from "react";
 import { compose, withHandlers, withStateHandlers, pure } from "recompose";
-
+import { func, string } from "prop-types";
 import * as R from "ramda";
 
 const HOC = compose(
@@ -38,6 +38,10 @@ const cityInput = HOC(({ city, _onSubmit, _onChange }) => (
   </form>
 ));
 
-cityInput.propTypes = {};
+cityInput.propTypes = {
+  city: string,
+  _onSubmit: func,
+  _onChange: func
+};
 
 export default cityInput;

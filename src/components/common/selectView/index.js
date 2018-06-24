@@ -1,6 +1,6 @@
 import React from "react";
 import { compose, pure } from "recompose";
-
+import { func, string } from "prop-types";
 const HOC = compose(pure);
 
 const selectView = HOC(({ weatherType, changeWeatherType }) => (
@@ -23,6 +23,9 @@ const selectView = HOC(({ weatherType, changeWeatherType }) => (
   </div>
 ));
 
-selectView.propTypes = {};
+selectView.propTypes = {
+  changeWeatherType: func.isRequired,
+  weatherType: string.isRequired
+};
 
 export default selectView;

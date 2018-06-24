@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
-import { compose, withPropsOnChange, withHandlers, pure } from "recompose";
+import React from "react";
+import { compose, pure } from "recompose";
 
-import * as R from "ramda";
+import { func, string } from "prop-types";
 
 const HOC = compose(pure);
 
@@ -16,6 +16,9 @@ const history = HOC(({ tempMeasure, changeTempMeasure }) => (
   </div>
 ));
 
-history.propTypes = {};
+history.propTypes = {
+  changeTempMeasure: func.isRequired,
+  tempMeasure: string.isRequired
+};
 
 export default history;

@@ -12,7 +12,6 @@ import {
   values,
   head
 } from "ramda";
-import moment from "moment";
 
 import { selectMeasure } from "../../utils";
 
@@ -57,21 +56,16 @@ const HOC = compose(
                         }.png`}
                         alt={head(day.weather).icon}
                       />
+
                       <div>
-                        <div>
-                          temp: {selectMeasure(tempMeasure, day.main.temp)}&deg;
-                        </div>
-                        <div>humidity: {day.main.humidity} %</div>
-                        <div>
-                          pressure: {parseInt(day.main.pressure, 10)} hPa
-                        </div>
-
-                        <div>wind speed: {day.wind.speed} mps</div>
-
-                        <div>
-                          wind degree: {parseInt(day.wind.deg, 10)}&deg;
-                        </div>
+                        temp: {selectMeasure(tempMeasure, day.main.temp)}&deg;
                       </div>
+                      <div>humidity: {day.main.humidity} %</div>
+                      <div>pressure: {parseInt(day.main.pressure, 10)} hPa</div>
+
+                      <div>wind speed: {day.wind.speed} mps</div>
+
+                      <div>wind degree: {parseInt(day.wind.deg, 10)}&deg;</div>
                     </div>
                   ),
                   item
@@ -87,8 +81,8 @@ const HOC = compose(
 );
 
 const forecastView = HOC(({ _title, _renderTitle }) => (
-  <div>
-    {_title}
+  <div className="ForecastViewContainer">
+    <div className="ForecastViewTitle">{_title}</div>
     <div>{_renderTitle}</div>
   </div>
 ));

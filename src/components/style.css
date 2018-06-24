@@ -60,6 +60,43 @@
   font-weight: 700;
 }
 
+.ForecastViewContainer {
+  width: inherit;
+}
+.ForecastViewTitle {
+  margin: 10px 0;
+  color: #009faf;
+  font-weight: 800;
+  font-size: 20px;
+  text-align: center;
+}
+.ForecastDayTitle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  color: #fff;
+  font-weight: 700;
+  background-color: #009faf;
+}
+.ForecastDaysContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ForecastDay {
+  border: 1px solid #fb8e00;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #009faf;
+  width: 100%;
+}
+
 .container {
   width: 1200px;
   margin-top: 20px;
@@ -103,31 +140,4 @@
 
 button {
   cursor: pointer;
-}
-
-.ForecastContainer {
-  width: 1200px;
-}
-.ForecastDayTitle {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  background-color: #e6e6fa;
-}
-.ForecastDaysContainer {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.ForecastDay {
-  border: 1px solid black;
-  background-color: #fff8e7;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
 }
