@@ -1,7 +1,7 @@
 import React from "react";
 import { compose, withHandlers, withStateHandlers, pure } from "recompose";
 import { func, string } from "prop-types";
-import * as R from "ramda";
+import { isEmpty } from "ramda";
 
 const HOC = compose(
   withStateHandlers(
@@ -20,7 +20,7 @@ const HOC = compose(
   withHandlers({
     _onSubmit: ({ city, resetCity, getData, weatherType }) => e => {
       e.preventDefault();
-      if (R.isEmpty(city)) {
+      if (isEmpty(city)) {
       } else {
         getData(city, weatherType);
         resetCity();

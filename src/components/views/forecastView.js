@@ -1,13 +1,12 @@
 import React from "react";
 
 import { compose, defaultProps, withPropsOnChange, pure } from "recompose";
-
+import { string, node, arrayOf } from "prop-types";
 import {
   isEmpty,
   groupBy,
   map,
   mapObjIndexed,
-  tap,
   pipe,
   values,
   head
@@ -86,6 +85,9 @@ const forecastView = HOC(({ _title, _renderTitle }) => (
   </div>
 ));
 
-forecastView.propTypes = {};
+forecastView.propTypes = {
+  _title: string,
+  _renderTitle: arrayOf(node)
+};
 
 export default forecastView;

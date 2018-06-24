@@ -26,7 +26,7 @@ export const getData = (city, type) => dispatch =>
           }
         }
         if (type === "forecast") {
-          if (res.city.id) {
+          if (res.city && res.city.id) {
             dispatch(selectCity(res.city.id));
             return res;
           }

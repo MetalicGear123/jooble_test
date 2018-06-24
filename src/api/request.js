@@ -7,6 +7,7 @@ const request = async url => {
   return axios
     .get(url)
     .then(res => {
+      console.log(res.status);
       if (res.status > 200) {
         throw res.status;
       }

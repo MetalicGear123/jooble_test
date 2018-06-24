@@ -1,16 +1,16 @@
 import React, { Fragment } from "react";
 import { compose, withPropsOnChange, withHandlers, pure } from "recompose";
 
-import * as R from "ramda";
+import { isEmpty } from "ramda";
 import moment from "moment";
-
+import { node } from "prop-types";
 import { selectMeasure } from "../../utils";
 
 const HOC = compose(
   withPropsOnChange(
     ["selectedCity", "data", "tempMeasure"],
     ({ data, selectedCity, tempMeasure }) => {
-      if (R.isEmpty(selectedCity) || R.isEmpty(data)) {
+      if (isEmpty(selectedCity) || isEmpty(data)) {
         return {
           _title: null
         };
@@ -66,6 +66,8 @@ const history = HOC(({ _information }) => (
   <div className="information">{_information}</div>
 ));
 
-history.propTypes = {};
+history.propTypes = {
+  _information: node
+};
 
 export default history;

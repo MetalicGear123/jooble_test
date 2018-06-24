@@ -1,7 +1,7 @@
 import React from "react";
 import { compose, withPropsOnChange, withHandlers, pure } from "recompose";
-
-import * as R from "ramda";
+import { number, arrayOf, node, func } from "prop-types";
+import { pipe, values, map } from "ramda";
 
 const HOC = compose(
   withHandlers({
@@ -13,9 +13,9 @@ const HOC = compose(
     ["selectedCity", "data"],
     ({ selectedCity, data, _changeCity }) => {
       return {
-        _listOfCitys: R.pipe(
-          R.values,
-          R.map(item => (
+        _listOfCitys: pipe(
+          values,
+          map(item => (
             <option
               className={`list_item ${
                 item.id === selectedCity ? "active" : ""
@@ -33,7 +33,7 @@ const HOC = compose(
   pure
 );
 
-const history = HOC(({ selectedCity, _listOfCitys, _changeCity, _data }) => (
+const history = HOC(({ selectedCity, _listOfCitys, _changeCity }) => (
   <div className="historyContainer">
     <div className="historyTitle">History</div>
     <select
@@ -46,6 +46,10 @@ const history = HOC(({ selectedCity, _listOfCitys, _changeCity, _data }) => (
   </div>
 ));
 
-history.propTypes = {};
+history.propTypes = {
+  selectedCity: number,
+  _listOfCitys: arrayOf(node),
+  _changeCity: func
+};
 
 export default history;

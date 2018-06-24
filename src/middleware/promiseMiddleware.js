@@ -189,12 +189,15 @@ export default function promiseMiddleware(config = {}) {
        */
       promise
         .then(value => {
-          if (value === null) {
+          console.log("value", value);
+          if (value === null || value.cod > 200) {
             return promise.then(handleReject);
           }
           return promise.then(handleFulfill);
         })
-        .catch(err => err);
+        .catch(err => {
+          return err;
+        });
     };
   };
 }
