@@ -32,6 +32,9 @@ const HOC = compose(
         mapObjIndexed((item, key) => (
           <div>
             <div>{key}</div>
+            <div>
+            {map(day => <div>{day.main.temp}</div>,item)}
+            </div>
           </div>
         )),
         values
